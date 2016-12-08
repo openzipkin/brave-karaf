@@ -23,6 +23,8 @@
   <packaging>pom</packaging>
 
   <modules>
+      <module>brave-features</module>
+      <module>brave-itests</module>
   </modules>
 
   <properties>
@@ -37,6 +39,7 @@
 
     <license-maven-plugin.version>2.11</license-maven-plugin.version>
 
+    <brave.version>3.16.0</brave.version>
     <zipkin.version>1.16.0</zipkin.version>
     <zipkin-reporter.version>0.6.7</zipkin-reporter.version>
 
@@ -116,7 +119,6 @@
     <dependency>
       <groupId>io.zipkin.java</groupId>
       <artifactId>zipkin</artifactId>
-      <version>${zipkin.version}</version>
     </dependency>
 
     <!-- don't worry. auto-* are source retention, not runtime -->
