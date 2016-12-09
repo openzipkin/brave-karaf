@@ -24,7 +24,6 @@
         <relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>brave-itests</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
 		<pax.exam.version>4.5.0</pax.exam.version>

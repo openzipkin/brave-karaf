@@ -49,8 +49,8 @@ public class BraveTest {
     public static Option[] configuration() throws Exception {
         MavenArtifactUrlReference karaf = maven().groupId("org.apache.karaf").artifactId("apache-karaf")
             .type("zip").version("4.0.7");
-        MavenUrlReference brave = maven().groupId("net.lr.brave.osgi").artifactId("brave-features").type("xml")
-           .classifier("features").version("0.0.1-SNAPSHOT");
+        MavenUrlReference brave = maven().groupId("io.zipkin.brave.karaf").artifactId("brave-features").type("xml")
+           .classifier("features").version("1.0.0-SNAPSHOT");
         return new Option[] //
         {
          karafDistributionConfiguration().frameworkUrl(karaf).useDeployFolder(false),

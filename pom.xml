@@ -41,7 +41,7 @@
 
     <brave.version>3.16.0</brave.version>
     <zipkin.version>1.16.0</zipkin.version>
-    <zipkin-reporter.version>0.6.7</zipkin-reporter.version>
+    <zipkin.reporter.version>0.6.7</zipkin.reporter.version>
 
     <slf4j.version>1.7.21</slf4j.version>
   </properties>
@@ -100,7 +100,7 @@
       <dependency>
         <groupId>io.zipkin.reporter</groupId>
         <artifactId>zipkin-reporter</artifactId>
-        <version>${zipkin-reporter.version}</version>
+        <version>${zipkin.reporter.version}</version>
       </dependency>
       <dependency>
         <groupId>junit</groupId>
