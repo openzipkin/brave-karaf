@@ -43,7 +43,7 @@ import zipkin.reporter.Reporter;
 @RunWith(PaxExam.class)
 @ExamReactorStrategy(PerClass.class)
 public class BraveTest {
-    List<Object> spans = new ArrayList<>();
+    List<Span> spans = new ArrayList<Span>();
 
     @Configuration
     public static Option[] configuration() throws Exception {

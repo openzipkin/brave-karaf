@@ -18,13 +18,13 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.2.0 http://karaf.apache.org/xmlns/features/v1.2.0">
 
-	<repository>mvn:org.apache.cxf.karaf/apache-cxf/3.1.8/xml/features</repository>
-
 	<feature name="brave-core">
+		<feature>scr</feature>
 		<bundle dependency="true">mvn:io.zipkin.java/zipkin/${zipkin.version}</bundle>
 		<bundle dependency="true">mvn:io.zipkin.reporter/zipkin-reporter/${zipkin.reporter.version}</bundle>
 		<bundle>mvn:io.zipkin.reporter/zipkin-sender-urlconnection/${zipkin.reporter.version}</bundle>
 		<bundle>mvn:io.zipkin.brave/brave-core/${brave.version}</bundle>
+		<bundle>mvn:io.zipkin.brave.karaf/brave-exporter/${project.version}</bundle>
 	</feature>
 	
 	<feature name="brave-kafka">
@@ -35,6 +35,7 @@
 	
 	<feature name="brave-jaxrs2">
 		<feature>brave-core</feature>
+		<bundle dependency="true">mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.jsr339-api-2.0.1/2.6.0</bundle>
 		<bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.javax-inject/1_2</bundle>
 		<bundle dependency="true">mvn:io.zipkin.brave/brave-http/${brave.version}</bundle>
 		<bundle>mvn:io.zipkin.brave/brave-jaxrs2/${brave.version}</bundle>
