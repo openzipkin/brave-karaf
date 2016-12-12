@@ -27,6 +27,7 @@
 		<module>brave-features</module>
 		<module>brave-itests</module>
 		<module>brave-exporter</module>
+		<module>brave-exporter-kafka08</module>
 	</modules>
 
 	<properties>
@@ -107,6 +108,11 @@
 			<dependency>
 				<groupId>io.zipkin.reporter</groupId>
 				<artifactId>zipkin-sender-urlconnection</artifactId>
+				<version>${zipkin.reporter.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.zipkin.reporter</groupId>
+				<artifactId>zipkin-sender-kafka08</artifactId>
 				<version>${zipkin.reporter.version}</version>
 			</dependency>
 			

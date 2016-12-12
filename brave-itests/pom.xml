@@ -40,6 +40,24 @@
 			<groupId>io.zipkin.brave</groupId>
 			<artifactId>brave-core</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>io.zipkin.brave.karaf</groupId>
+			<artifactId>brave-exporter</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.zipkin.brave.karaf</groupId>
+			<artifactId>brave-exporter-kafka08</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.zipkin.reporter</groupId>
+			<artifactId>zipkin-sender-urlconnection</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.zipkin.reporter</groupId>
+			<artifactId>zipkin-sender-kafka08</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -51,6 +69,12 @@
 		<dependency>
 			<groupId>org.ops4j.pax.exam</groupId>
 			<artifactId>pax-exam-junit4</artifactId>
+			<version>${pax.exam.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.ops4j.pax.exam</groupId>
+			<artifactId>pax-exam-cm</artifactId>
 			<version>${pax.exam.version}</version>
 			<scope>test</scope>
 		</dependency>

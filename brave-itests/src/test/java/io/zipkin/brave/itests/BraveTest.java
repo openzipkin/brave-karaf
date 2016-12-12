@@ -16,6 +16,7 @@ package io.zipkin.brave.itests;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.ops4j.pax.exam.CoreOptions.maven;
+import static org.ops4j.pax.exam.cm.ConfigurationAdminOptions.newConfiguration;
 import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.configureConsole;
 import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.features;
 import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.karafDistributionConfiguration;
@@ -23,7 +24,10 @@ import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.keepRunti
 import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.logLevel;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import com.github.kristofa.brave.Brave;
 import org.junit.Assert;
@@ -37,13 +41,32 @@ import org.ops4j.pax.exam.options.MavenArtifactUrlReference;
 import org.ops4j.pax.exam.options.MavenUrlReference;
 import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
 import org.ops4j.pax.exam.spi.reactors.PerClass;
+import org.ops4j.pax.exam.util.Filter;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.InvalidSyntaxException;
+import org.osgi.framework.ServiceReference;
 import zipkin.Span;
 import zipkin.reporter.Reporter;
 
 @RunWith(PaxExam.class)
 @ExamReactorStrategy(PerClass.class)
 public class BraveTest {
+    private static final String FILTER_KAFKA08 = "(component.name=io.zipkin.reporter.kafka08)";
+
+    private static final String FILTER_URLCONNECT = "(component.name=io.zipkin.reporter.urlconnect)";
+
     List<Span> spans = new ArrayList<Span>();
+
+    @Inject
+    @Filter(FILTER_URLCONNECT)
+    Reporter<Span> reporter;
+    
+    @Inject
+    @Filter(FILTER_KAFKA08)
+    Reporter<Span> reporterKafka;
+    
+    @Inject
+    BundleContext context;
 
     @Configuration
     public static Option[] configuration() throws Exception {
@@ -57,12 +80,15 @@ public class BraveTest {
          configureConsole().ignoreLocalConsole(), //
          logLevel(LogLevel.INFO), //
          keepRuntimeFolder(), //
-         features(brave, "brave-core")
+         features(brave, "brave-core", "brave-kafka08"),
+         // Create an empty config to trigger creation of component 
+         newConfiguration("io.zipkin.reporter.urlconnect").asOption(),
+         newConfiguration("io.zipkin.reporter.kafka08").asOption()
         };
     }
 
     @Test
-    public void shouldHaveBundleContext() {
+    public void inlineBraveSetup() {
         Reporter<Span> local = new Reporter<Span>() {
 
             @Override
@@ -75,5 +101,26 @@ public class BraveTest {
         brave.localTracer().finishSpan();
         Assert.assertThat(1, equalTo(spans.size()));
     }
+    
+    @SuppressWarnings("rawtypes")
+    @Test
+    public void checkReporterUrlConnect() throws InvalidSyntaxException {
+        ServiceReference<Reporter> ref = getSingleService(FILTER_URLCONNECT);
+        Assert.assertEquals(10000, ref.getProperty("connectTimeout"));
+    }
 
+    @SuppressWarnings("rawtypes")
+    @Test
+    public void checkReporterKafka() throws InvalidSyntaxException {
+        ServiceReference<Reporter> ref = getSingleService(FILTER_KAFKA08);
+        Assert.assertEquals("zipkin", ref.getProperty("topic"));
+    }
+
+    @SuppressWarnings("rawtypes")
+    private ServiceReference<Reporter> getSingleService(String filter) throws InvalidSyntaxException {
+        Collection<ServiceReference<Reporter>> refs = context.getServiceReferences(Reporter.class, filter);
+        Assert.assertEquals(1, refs.size());
+        return refs.iterator().next();
+    }
+    
 }

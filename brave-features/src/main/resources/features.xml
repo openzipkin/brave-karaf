@@ -27,10 +27,11 @@
 		<bundle>mvn:io.zipkin.brave.karaf/brave-exporter/${project.version}</bundle>
 	</feature>
 	
-	<feature name="brave-kafka">
+	<feature name="brave-kafka08">
 		<feature>brave-core</feature>
 		<bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.kafka-clients/0.8.2.2_1</bundle>
 		<bundle>mvn:io.zipkin.reporter/zipkin-sender-kafka08/${zipkin.reporter.version}</bundle>
+		<bundle>mvn:io.zipkin.brave.karaf/brave-exporter-kafka08/${project.version}</bundle>
 	</feature>
 	
 	<feature name="brave-jaxrs2">
