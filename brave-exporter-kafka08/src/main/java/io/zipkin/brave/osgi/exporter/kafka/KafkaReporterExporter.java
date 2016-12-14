@@ -40,6 +40,7 @@ import zipkin.reporter.kafka08.KafkaSender;
 @Designate(ocd = KafkaReporterExporter.Config.class)
 public class KafkaReporterExporter {
 
+    private static final String OVERRIDE_PREFIX = "kafka.";
     @SuppressWarnings("rawtypes")
     private ServiceRegistration<Reporter> reg;
     private AsyncReporter<Span> reporter;
@@ -50,22 +51,34 @@ public class KafkaReporterExporter {
         Encoding encoding() default Encoding.THRIFT;
         int messageMaxBytes() default 1000000;
         String topic() default "zipkin";
-        String overrides();
     }
 
     @Activate
     public void activate(Config config, BundleContext context, Map<String,String> properties) {
-        config.overrides();
-        Map<String, String> overrides = new HashMap<String, String>();
+        KafkaSender sender = createSender(config, properties);
+        reporter = AsyncReporter.builder(sender).build();
+        reg = context.registerService(Reporter.class, reporter, new Hashtable<String, String>(properties));
+    }
+
+    KafkaSender createSender(Config config, Map<String, String> properties) {
         KafkaSender sender = KafkaSender.builder() //
             .bootstrapServers(config.bootstrapServers()) //
             .encoding(config.encoding()) //
             .messageMaxBytes(config.messageMaxBytes()) //
-            .overrides(overrides) //
+            .overrides(getOverrides(properties)) //
             .topic(config.topic()) //
             .build();
-        reporter = AsyncReporter.builder(sender).build();
-        reg = context.registerService(Reporter.class, reporter, new Hashtable<String, String>(properties));
+        return sender;
+    }
+
+    private HashMap<String, String> getOverrides(Map<String, String> properties) {
+        HashMap<String, String> overrides = new HashMap<String, String>();
+        for (String key : properties.keySet()) {
+            if (key.startsWith(OVERRIDE_PREFIX)) {
+                overrides.put(key.substring(OVERRIDE_PREFIX.length() - 1), properties.get(key));
+            }
+        }
+        return overrides;
     }
     
     @Deactivate
