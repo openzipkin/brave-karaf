@@ -33,6 +33,21 @@
 		<bundle>mvn:io.zipkin.reporter/zipkin-sender-kafka08/${zipkin.reporter.version}</bundle>
 		<bundle>mvn:io.zipkin.brave.karaf/brave-exporter-kafka08/${project.version}</bundle>
 	</feature>
+
+	<feature name="brave-okhttp3`">
+		<feature>brave-core</feature>
+		<bundle>mvn:org.apache.httpcomponents/httpcore-osgi/4.4.5</bundle>
+		<bundle>mvn:org.apache.httpcomponents/httpclient-osgi/4.5.3</bundle>
+		<bundle>mvn:io.zipkin.brave/brave/${brave.version}</bundle>
+		<bundle>mvn:io.zipkin.brave/brave/${brave.version}</bundle>
+		<bundle>mvn:io.zipkin.brave/brave-instrumentation-http/${brave.version}</bundle>
+		<bundle>mvn:io.zipkin.brave/brave-instrumentation-httpclient/${brave.version}</bundle>
+		<bundle>mvn:io.zipkin.brave/brave-context-slf4j/${brave.version}</bundle>
+		<bundle>mvn:io.zipkin.reporter/zipkin-sender-okhttp3/${zipkin.reporter.version}</bundle>
+		<bundle>wrap:mvn:com.squareup.okhttp3/okhttp/3.8.0</bundle>
+		<bundle>wrap:mvn:com.squareup.okio/okio/1.13.0</bundle>
+		<bundle>mvn:io.zipkin.brave.karaf/brave-exporter-okhttp3/${project.version}</bundle>
+	</feature>
 	
 	<feature name="brave-jaxrs2">
 		<feature>brave-core</feature>

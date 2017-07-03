@@ -26,7 +26,8 @@ the License.
 		<module>brave-itests</module>
 		<module>brave-exporter</module>
 		<module>brave-exporter-kafka08</module>
-	</modules>
+		<module>brave-exporter-okhttp3</module>
+  </modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
