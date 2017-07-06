@@ -41,7 +41,7 @@ the License.
 
 		<license-maven-plugin.version>2.11</license-maven-plugin.version>
 
-		<brave.version>4.4.1-SNAPSHOT</brave.version>
+		<brave.version>4.5.0</brave.version>
 		<zipkin.version>1.24.0</zipkin.version>
 		<zipkin.reporter.version>0.10.0</zipkin.reporter.version>
 
