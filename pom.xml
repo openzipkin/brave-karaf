@@ -241,7 +241,7 @@ the License.
 						<exclude>.travis.yml</exclude>
 						<exclude>.gitignore</exclude>
 						<exclude>.mvn/**</exclude>
-						<exclude>.settings</exclude>
+						<exclude>.settings.xml</exclude>
 						<exclude>mvnw*</exclude>
 						<exclude>build-support/**</exclude>
 						<exclude>etc/header.txt</exclude>
