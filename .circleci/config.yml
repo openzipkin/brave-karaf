@@ -36,7 +36,7 @@ jobs:
 
       - run:
           name: Tests
-          command: ./mvnw clean verify install
+          command: ./mvnw clean verify
 
       - run:
           name: Collect test reports
