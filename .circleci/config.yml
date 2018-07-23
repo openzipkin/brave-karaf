@@ -17,12 +17,6 @@ jobs:
   build:
     docker:
       - image: circleci/openjdk:8-jdk
-        environment:
-          MYSQL_USER: root
-
-      - image: circleci/mysql:5.7
-        environment:
-          MYSQL_USER: root
 
     steps:
       - checkout
