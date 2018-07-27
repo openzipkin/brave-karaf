@@ -36,7 +36,8 @@ jobs:
 
       - run:
           name: Tests
-          command: ./mvnw clean verify
+          # use install, as opposed to verify, to ensure invoker tests use latest code
+          command: ./mvnw clean install
 
       - run:
           name: Collect test reports
