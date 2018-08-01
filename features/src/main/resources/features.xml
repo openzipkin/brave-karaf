@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2016 The OpenZipkin Authors
+
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+    in compliance with the License. You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software distributed under the License
+    is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+    or implied. See the License for the specific language governing permissions and limitations under
+    the License.
+
+-->
+<features name="brave" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.2.0 http://karaf.apache.org/xmlns/features/v1.2.0">
+
+	<feature name="brave">
+		<feature>scr</feature>
+		<bundle dependency="true">mvn:io.zipkin.zipkin2/zipkin/${zipkin.version}</bundle>
+		<bundle dependency="true">mvn:io.zipkin.reporter2/zipkin-reporter/${zipkin-reporter.version}</bundle>
+		<bundle>mvn:io.zipkin.reporter2/zipkin-sender-urlconnection/${zipkin-reporter.version}</bundle>
+		<bundle>mvn:io.zipkin.brave/brave/${brave.version}</bundle>
+		<bundle>mvn:io.zipkin.brave/brave-instrumentation-http/${brave.version}</bundle>
+		<bundle>mvn:io.zipkin.brave.karaf/brave-exporter/${project.version}</bundle>
+	</feature>
+
+	<feature name="brave-sender-kafka">
+		<feature>brave</feature>
+		<bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.kafka-clients/1.1.0_1</bundle>
+		<bundle>mvn:io.zipkin.reporter2/zipkin-sender-kafka11/${zipkin-reporter.version}</bundle>
+		<bundle>mvn:io.zipkin.brave.karaf/brave-exporter-sender-kafka/${project.version}</bundle>
+	</feature>
+
+	<feature name="brave-sender-okhttp">
+		<feature>brave</feature>
+		<bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.okio/1.14.0_1</bundle>
+		<bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.okhttp/3.10.0_2</bundle>
+		<bundle>mvn:io.zipkin.reporter2/zipkin-sender-okhttp3/${zipkin-reporter.version}</bundle>
+		<bundle>mvn:io.zipkin.brave.karaf/brave-exporter-sender-okhttp/${project.version}</bundle>
+	</feature>
+</features>
