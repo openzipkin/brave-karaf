@@ -53,7 +53,7 @@ public class BraveTest {
   @Configuration
   public static Option[] configuration() {
     MavenArtifactUrlReference karaf = maven().groupId("org.apache.karaf").artifactId("apache-karaf")
-        .type("zip").version("4.0.7");
+        .type("zip").version("4.2.0");
     MavenUrlReference brave =
         maven().groupId("io.zipkin.brave.karaf").artifactId("brave-features").type("xml")
             .classifier("features").version("0.1.0-SNAPSHOT");

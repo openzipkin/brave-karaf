@@ -21,13 +21,13 @@
 	<feature name="brave">
 		<feature>scr</feature>
 		<bundle dependency="true">mvn:io.zipkin.zipkin2/zipkin/${zipkin.version}</bundle>
-		<bundle dependency="true">mvn:io.zipkin.reporter2/zipkin-reporter/${zipkin.reporter.version}</bundle>
-		<bundle>mvn:io.zipkin.reporter2/zipkin-sender-urlconnection/${zipkin.reporter.version}</bundle>
+		<bundle dependency="true">mvn:io.zipkin.reporter2/zipkin-reporter/${zipkin-reporter.version}</bundle>
+		<bundle>mvn:io.zipkin.reporter2/zipkin-sender-urlconnection/${zipkin-reporter.version}</bundle>
 		<bundle>mvn:io.zipkin.brave/brave/${brave.version}</bundle>
 		<bundle>mvn:io.zipkin.brave/brave-instrumentation-http/${brave.version}</bundle>
 		<bundle>mvn:io.zipkin.brave.karaf/brave-exporter/${project.version}</bundle>
 	</feature>
-	
+
 	<feature name="brave-sender-kafka">
 		<feature>brave</feature>
 		<bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.kafka-clients/1.1.0_1</bundle>
