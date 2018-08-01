@@ -54,7 +54,7 @@ public class URLConnectionSenderExporter {
     if (sender != null) sender.close();
   }
 
-  @ObjectClassDefinition(name = "Zipkin Sender URLConnection") @interface Config {
+  public static @ObjectClassDefinition(name = "Zipkin Sender URLConnection") @interface Config {
     String endpoint() default "http://localhost:9411/api/v2/spans";
 
     boolean compressionEnabled() default true;

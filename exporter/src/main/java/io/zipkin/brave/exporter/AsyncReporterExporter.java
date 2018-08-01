@@ -15,14 +15,14 @@ package io.zipkin.brave.exporter;
 
 import java.util.Hashtable;
 import java.util.Map;
+
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.metatype.annotations.Designate;
-import org.osgi.service.metatype.annotations.ObjectClassDefinition;
+
 import zipkin2.Span;
 import zipkin2.reporter.AsyncReporter;
 import zipkin2.reporter.Reporter;
@@ -32,7 +32,6 @@ import zipkin2.reporter.Sender;
     immediate = true,
     name = "io.zipkin.asyncreporter"
 )
-@Designate(ocd = AsyncReporterExporter.Config.class)
 public class AsyncReporterExporter {
   @Reference
   Sender sender;
@@ -42,7 +41,7 @@ public class AsyncReporterExporter {
   private ServiceRegistration<Reporter> reg;
 
   @Activate
-  public void activate(Config config, BundleContext context, Map<String, String> properties) {
+  public void activate(BundleContext context, Map<String, String> properties) {
     reporter = AsyncReporter.builder(sender)
         .build();
     reg = context.registerService(Reporter.class, reporter,
@@ -53,8 +52,5 @@ public class AsyncReporterExporter {
   public void deactive() {
     reg.unregister();
     if (reporter != null) reporter.close();
-  }
-
-  @ObjectClassDefinition(name = "AsyncReporter") @interface Config {
   }
 }

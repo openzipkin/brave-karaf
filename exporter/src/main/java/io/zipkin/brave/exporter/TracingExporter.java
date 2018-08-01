@@ -58,7 +58,7 @@ public class TracingExporter {
     if (tracing != null) tracing.close();
   }
 
-  @ObjectClassDefinition(name = "Tracing") @interface Config {
+  public static @ObjectClassDefinition(name = "Tracing") @interface Config {
     String name() default "unknown";
 
     boolean traceId128Bit() default false;
