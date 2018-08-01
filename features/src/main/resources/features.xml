@@ -31,14 +31,15 @@
 	<feature name="brave-sender-kafka">
 		<feature>brave</feature>
 		<bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.kafka-clients/1.1.0_1</bundle>
-		<bundle>mvn:io.zipkin.reporter2/zipkin-sender-kafka11/${zipkin.reporter.version}</bundle>
+		<bundle>mvn:io.zipkin.reporter2/zipkin-sender-kafka11/${zipkin-reporter.version}</bundle>
 		<bundle>mvn:io.zipkin.brave.karaf/brave-exporter-sender-kafka/${project.version}</bundle>
 	</feature>
 
-	<feature name="brave-sender-okhttp`">
+	<feature name="brave-sender-okhttp">
 		<feature>brave</feature>
+		<bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.okio/1.14.0_1</bundle>
 		<bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.okhttp/3.10.0_2</bundle>
-		<bundle>mvn:io.zipkin.reporter2/zipkin-sender-okhttp3/${zipkin.reporter.version}</bundle>
+		<bundle>mvn:io.zipkin.reporter2/zipkin-sender-okhttp3/${zipkin-reporter.version}</bundle>
 		<bundle>mvn:io.zipkin.brave.karaf/brave-exporter-sender-okhttp/${project.version}</bundle>
 	</feature>
 </features>
