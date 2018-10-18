@@ -58,11 +58,10 @@ public class BraveTest {
   public static Option[] configuration() throws Exception {
     MavenArtifactUrlReference karaf = maven().groupId("org.apache.karaf").artifactId("apache-karaf")
         .type("zip")
-        .version(getVersion("org.apache.karaf.features/org.apache.karaf.features.core"));
+        .version(getVersionFromMaven("org.apache.karaf.features/org.apache.karaf.features.core"));
     MavenUrlReference brave =
         maven().groupId("io.zipkin.brave.karaf").artifactId("brave-features").type("xml")
-            .classifier("features")
-            .version("io.zipkin.brave.karaf/brave-features");
+            .classifier("features").version(getBraveKarafVersion());
     return new Option[] {
         karafDistributionConfiguration().frameworkUrl(karaf).useDeployFolder(false),
         configureConsole().ignoreLocalConsole(),
@@ -113,12 +112,20 @@ public class BraveTest {
 	  throw new RuntimeException("Timeout finding service");
   }
 
-  static String getVersion(String path) throws Exception {
+  static String getVersionFromMaven(String path) throws Exception {
     InputStream is =
         BraveTest.class.getResourceAsStream("/META-INF/maven/" + path + "/pom.properties");
     Assert.assertNotNull(is);
     Properties p = new Properties();
     p.load(is);
     return p.getProperty("version");
+  }
+
+  static String getBraveKarafVersion() throws Exception {
+    InputStream is = BraveTest.class.getResourceAsStream("/exam.properties");
+    Assert.assertNotNull(is);
+    Properties p = new Properties();
+    p.load(is);
+    return p.getProperty("brave-karaf.version");
   }
 }
