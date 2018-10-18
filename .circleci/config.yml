@@ -16,7 +16,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/openjdk:8-jdk
+      - image: circleci/openjdk:11-jdk
 
     steps:
       - checkout
@@ -50,7 +50,7 @@ jobs:
 
   publish_snapshot:
     docker:
-      - image: circleci/openjdk:8-jdk
+      - image: circleci/openjdk:11-jdk
     steps:
       - checkout
       - restore_cache:
@@ -65,7 +65,7 @@ jobs:
 
   publish_stable:
     docker:
-      - image: circleci/openjdk:8-jdk
+      - image: circleci/openjdk:11-jdk
     steps:
       - checkout
       - restore_cache:
@@ -82,7 +82,7 @@ jobs:
 
   trigger_publish:
     docker:
-      - image: circleci/openjdk:8-jdk
+      - image: circleci/openjdk:11-jdk
     steps:
       - checkout
       - restore_cache:
