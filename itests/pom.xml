@@ -26,7 +26,7 @@
 
   <properties>
     <pax-exam.version>4.12.0</pax-exam.version>
-    <karaf.version>4.2.0</karaf.version>
+    <karaf.version>4.2.1</karaf.version>
     <main.basedir>${project.basedir}/..</main.basedir>
   </properties>
 
