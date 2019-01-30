@@ -48,7 +48,4 @@ pipeline {
             deleteDir()
         }
     }
-}eteDir()
-        }
-    }
 }
