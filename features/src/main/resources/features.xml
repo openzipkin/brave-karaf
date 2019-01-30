@@ -28,14 +28,14 @@
 		<bundle>mvn:io.zipkin.reporter2/zipkin-sender-urlconnection/${zipkin-reporter.version}</bundle>
 		<bundle>mvn:io.zipkin.brave/brave/${brave.version}</bundle>
 		<bundle>mvn:io.zipkin.brave/brave-instrumentation-http/${brave.version}</bundle>
-		<bundle>mvn:io.zipkin.brave.karaf/brave-exporter/${project.version}</bundle>
+		<bundle>mvn:org.apache.zipkin.brave.karaf/brave-exporter/${project.version}</bundle>
 	</feature>
 
 	<feature name="brave-sender-kafka">
 		<feature>brave</feature>
 		<bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.kafka-clients/2.0.0_1</bundle>
 		<bundle>mvn:io.zipkin.reporter2/zipkin-sender-kafka11/${zipkin-reporter.version}</bundle>
-		<bundle>mvn:io.zipkin.brave.karaf/brave-exporter-sender-kafka/${project.version}</bundle>
+		<bundle>mvn:org.apache.zipkin.brave.karaf/brave-exporter-sender-kafka/${project.version}</bundle>
 	</feature>
 
 	<feature name="brave-sender-okhttp">
@@ -45,6 +45,6 @@
 		<!-- for javax.annotation.Nullable used by OkHttp. Lacking this is a problem in JDK 11 -->
 		<bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.jsr305/3.0.2_1</bundle>
 		<bundle>mvn:io.zipkin.reporter2/zipkin-sender-okhttp3/${zipkin-reporter.version}</bundle>
-		<bundle>mvn:io.zipkin.brave.karaf/brave-exporter-sender-okhttp/${project.version}</bundle>
+		<bundle>mvn:org.apache.zipkin.brave.karaf/brave-exporter-sender-okhttp/${project.version}</bundle>
 	</feature>
 </features>

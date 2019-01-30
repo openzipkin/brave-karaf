@@ -63,7 +63,7 @@ public class BraveTest {
         .type("zip")
         .version(getVersionFromMaven("org.apache.karaf.features/org.apache.karaf.features.core"));
     MavenUrlReference brave =
-        maven().groupId("io.zipkin.brave.karaf").artifactId("brave-features").type("xml")
+        maven().groupId("org.apache.zipkin.brave.karaf").artifactId("brave-features").type("xml")
             .classifier("features").version(getBraveKarafVersion());
     return new Option[] {
         karafDistributionConfiguration().frameworkUrl(karaf).useDeployFolder(false),

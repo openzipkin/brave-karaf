@@ -24,6 +24,6 @@
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="pom:dependency[pom:groupId = 'io.zipkin.brave.karaf']" />
+  <xsl:template match="pom:dependency[pom:groupId = 'org.apache.zipkin.brave.karaf']" />
   <xsl:template match="pom:dependency[pom:groupId = '${project.groupId}']" />
 </xsl:stylesheet>
