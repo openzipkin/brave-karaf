@@ -59,7 +59,7 @@ jobs:
           name: Publish snapshot
           command: |
             # Guard against running this on pull requests or forks
-            [ "$CIRCLE_PROJECT_USERNAME" == "openzipkin" ] || exit 0
+            [ "$CIRCLE_PROJECT_USERNAME" == "apache" ] || exit 0
             [ -z "$CIRCLE_PR_NUMBER" ] || exit 0
             ./build-support/publish-snapshot.sh
 
@@ -76,7 +76,7 @@ jobs:
           no_output_timeout: 30m
           command: |
             # Guard against running this on pull requests or forks
-            [ "$CIRCLE_PROJECT_USERNAME" == "openzipkin" ] || exit 0
+            [ "$CIRCLE_PROJECT_USERNAME" == "apache" ] || exit 0
             [ -z "$CIRCLE_PR_NUMBER" ] || exit 0
             ./build-support/publish-stable.sh
 
