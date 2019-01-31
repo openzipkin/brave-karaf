@@ -62,7 +62,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                sh './mvnw clean deploy -Papache-release -Dgpg.skip=true -pl -:brave-itests'
+                sh './mvnw clean deploy -Papache-release -Dgpg.skip=true --batch-mode -pl -:brave-itests'
             }
         }
     }
@@ -78,7 +78,7 @@ pipeline {
                 if (env.BRANCH_NAME == 'master') {
                     emailext(
                         subject: "[${currentBuild.projectName}] master is ${currentBuild.currentResult} (#${currentBuild.number})",
-                        to: 'notifications@zipkin.apache.org',
+                        to: 'commits@zipkin.apache.org',
                         replyTo: 'dev@zipkin.apache.org',
                         body: "See <${currentBuild.absoluteUrl}>"
                     )
