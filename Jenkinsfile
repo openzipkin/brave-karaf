@@ -62,7 +62,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                sh './mvnw clean deploy -Papache-release -Dgpg.skip=true --batch-mode -pl -:brave-itests'
+                sh './mvnw deploy -Papache-release -Dgpg.skip=true --batch-mode -pl -:brave-itests'
             }
         }
     }
