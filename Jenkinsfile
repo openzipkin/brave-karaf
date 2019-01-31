@@ -57,17 +57,14 @@ pipeline {
             }
         }
 
-        /*
-        TODO uncomment and finish up the command here once we're ready to release snapshots
         stage('Publish snapshot') {
             when {
                 branch 'master'
             }
             steps {
-                sh './mvnw $TODO'
+                sh './mvnw clean deploy -Papache-release'
             }
         }
-         */
     }
 
     post {

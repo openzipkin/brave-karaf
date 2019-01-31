@@ -64,12 +64,12 @@
 
   <name>Brave Karaf (Parent)</name>
   <description>Brave Karaf (Parent)</description>
-  <url>https://github.com/openzipkin/brave-karaf</url>
+  <url>https://github.com/apache/incubator-zipkin-brave-karaf</url>
   <inceptionYear>2016</inceptionYear>
 
   <organization>
-    <name>OpenZipkin</name>
-    <url>http://zipkin.io/</url>
+    <name>The Apache Software Foundation</name>
+    <url>http://www.apache.org/</url>
   </organization>
 
   <licenses>
@@ -81,9 +81,9 @@
   </licenses>
 
   <scm>
-    <url>https://github.com/openzipkin/brave-karaf</url>
-    <connection>scm:git:https://github.com/openzipkin/brave-karaf.git</connection>
-    <developerConnection>scm:git:https://github.com/openzipkin/brave-karaf.git</developerConnection>
+    <url>https://github.com/apache/incubator-zipkin-brave-karaf</url>
+    <connection>scm:git:https://github.com/apache/incubator-zipkin-brave-karaf.git</connection>
+    <developerConnection>scm:git:https://github.com/apache/incubator-zipkin-brave-karaf.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
 
@@ -96,20 +96,35 @@
     </developer>
   </developers>
 
+  <mailingLists>
+    <mailingList>
+      <name>Zipkin Developer List</name>
+      <post>dev@zipkin.apache.org</post>
+      <subscribe>dev-subscribe@zipkin.apache.org</subscribe>
+      <unsubscribe>dev-unsubscribe@zipkin.apache.org</unsubscribe>
+    </mailingList>
+    <mailingList>
+      <name>Zipkin Commits</name>
+      <post>commits@zipkin.apache.org</post>
+      <subscribe>commits-subscribe@zipkin.apache.org</subscribe>
+      <unsubscribe>commits-unsubscribe@zipkin.apache.org</unsubscribe>
+    </mailingList>
+  </mailingLists>
+
   <distributionManagement>
     <repository>
-      <id>bintray</id>
-      <url>https://api.bintray.com/maven/openzipkin/maven/brave-karaf/;publish=1</url>
+      <id>apache.releases</id>
+      <url>https://repository.apache.org/service/local/staging/deploy/maven2</url>
     </repository>
     <snapshotRepository>
-      <id>jfrog-snapshots</id>
-      <url>http://oss.jfrog.org/artifactory/oss-snapshot-local</url>
+      <id>apache.snapshots</id>
+      <url>https://repository.apache.org/content/repositories/snapshots/</url>
     </snapshotRepository>
   </distributionManagement>
 
   <issueManagement>
     <system>Github</system>
-    <url>https://github.com/openzipkin/brave-karaf/issues</url>
+    <url>https://github.com/apache/incubator-zipkin-brave-karaf/issues</url>
   </issueManagement>
 
   <dependencyManagement>
@@ -210,7 +225,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
 
   <build>
     <pluginManagement>
@@ -339,6 +353,7 @@
             <exclude>etc/header.txt</exclude>
             <exclude>**/.idea/**</exclude>
             <exclude>LICENSE</exclude>
+            <exclude>DISCLAIMER</exclude>
             <exclude>**/*.md</exclude>
           </excludes>
           <strictCheck>true</strictCheck>
@@ -422,26 +437,6 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-release-plugin</artifactId>
-        <version>2.5.3</version>
-        <configuration>
-          <useReleaseProfile>false</useReleaseProfile>
-          <releaseProfiles>release</releaseProfiles>
-          <autoVersionSubmodules>true</autoVersionSubmodules>
-          <tagNameFormat>@{project.version}</tagNameFormat>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>io.zipkin.centralsync-maven-plugin</groupId>
-        <artifactId>centralsync-maven-plugin</artifactId>
-        <version>0.1.0</version>
-        <configuration>
-          <packageName>brave-karaf</packageName>
-        </configuration>
       </plugin>
     </plugins>
   </build>
