@@ -2,7 +2,7 @@ pipeline {
     agent {
         label 'ubuntu'
     }
-    
+
     tools {
         jdk 'JDK 1.8 (latest)'
     }
@@ -12,10 +12,6 @@ pipeline {
         timestamps()
     }
 
-    triggers {
-        pollSCM('H/15 * * * *')
-    }
-
     stages {
         stage('SCM Checkout') {
             steps {
@@ -23,7 +19,7 @@ pipeline {
                 checkout scm
             }
         }
-        
+
         stage('Check environment') {
             steps {
                 sh 'env'
