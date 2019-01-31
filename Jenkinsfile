@@ -53,7 +53,7 @@ pipeline {
         stage('Run tests') {
             steps {
                 // use install, as opposed to verify, to ensure invoker tests use latest code
-                sh './mvnw clean install --batch-mode'
+                sh './mvnw clean install --batch-mode -nsu'
             }
         }
 
@@ -62,7 +62,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                sh './mvnw deploy -Papache-release -Dgpg.skip=true --batch-mode -pl -:brave-itests'
+                sh './mvnw deploy -Papache-release -Dgpg.skip=true -DskipTests --batch-mode -pl -:brave-itests -nsu'
             }
         }
     }
