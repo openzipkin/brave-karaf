@@ -53,7 +53,7 @@ pipeline {
         stage('Run tests') {
             steps {
                 // use install, as opposed to verify, to ensure invoker tests use latest code
-                sh './mvnw clean install'
+                sh './mvnw clean install --batch-mode'
             }
         }
 
