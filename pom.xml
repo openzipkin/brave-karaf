@@ -28,7 +28,7 @@
 
   <groupId>org.apache.zipkin.brave.karaf</groupId>
   <artifactId>brave-karaf-parent</artifactId>
-  <version>0.1.2-SNAPSHOT</version>
+  <version>0.1.2</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -84,7 +84,7 @@
     <url>https://github.com/apache/incubator-zipkin-brave-karaf</url>
     <connection>scm:git:https://github.com/apache/incubator-zipkin-brave-karaf.git</connection>
     <developerConnection>scm:git:https://github.com/apache/incubator-zipkin-brave-karaf.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>v0.1.2</tag>
   </scm>
 
   <!-- Developer section is needed for Maven Central, but doesn't need to include each person -->
