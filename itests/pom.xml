@@ -161,5 +161,14 @@
         <filtering>true</filtering>
       </testResource>
     </testResources>
+    <plugins>
+      <!-- The integration test suite is not a valid dependency to others -->
+      <plugin>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 </project>
