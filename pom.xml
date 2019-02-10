@@ -59,7 +59,7 @@
     <zipkin-reporter.version>2.7.10</zipkin-reporter.version>
 
     <license-maven-plugin.version>2.11</license-maven-plugin.version>
-    <maven-failsafe-plugin.version>2.22.1</maven-failsafe-plugin.version>
+    <maven-failsafe-plugin.version>3.0.0-M3</maven-failsafe-plugin.version>
   </properties>
 
   <name>Brave Karaf (Parent)</name>
@@ -247,6 +247,15 @@
             </execution>
           </executions>
         </plugin>
+
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${maven-failsafe-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>${maven-failsafe-plugin.version}</version>
+        </plugin>
       </plugins>
     </pluginManagement>
 
@@ -285,15 +294,6 @@
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
         <version>3.1.0</version>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>${maven-failsafe-plugin.version}</version>
-      </plugin>
-      <plugin>
-        <artifactId>maven-failsafe-plugin</artifactId>
-        <version>${maven-failsafe-plugin.version}</version>
       </plugin>
 
       <plugin>
