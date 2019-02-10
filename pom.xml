@@ -516,38 +516,23 @@
       </build>
     </profile>
     <profile>
-      <id>release</id>
+      <id>apache-release</id>
       <build>
         <plugins>
-          <!-- Creates source jar -->
           <plugin>
-            <artifactId>maven-source-plugin</artifactId>
-            <version>3.0.1</version>
+            <artifactId>maven-assembly-plugin</artifactId>
             <executions>
               <execution>
-                <id>attach-sources</id>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-
-          <plugin>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>3.0.1</version>
-            <configuration>
-              <failOnError>false</failOnError>
-              <!-- hush pedantic warnings: we don't put param and return on everything! -->
-              <doclint>none</doclint>
-            </configuration>
-            <executions>
-              <execution>
-                <id>attach-javadocs</id>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-                <phase>package</phase>
+                <id>source-release-assembly</id>
+                <configuration>
+                  <!-- make the source release zip includes the word incubating -->
+                  <finalName>apache-zipkin-brave-karaf-incubating-${project.version}</finalName>
+                  <descriptors>
+                    <descriptor>src/main/assemblies/source-release.xml</descriptor>
+                  </descriptors>
+                  <!-- don't inherit the source-release as we are overriding it -->
+                  <descriptorRefs combine.self="override"/>
+                </configuration>
               </execution>
             </executions>
           </plugin>
