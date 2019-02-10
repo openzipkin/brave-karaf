@@ -531,7 +531,7 @@
                     <descriptor>src/main/assemblies/source-release.xml</descriptor>
                   </descriptors>
                   <!-- don't inherit the source-release as we are overriding it -->
-                  <descriptorRefs combine.self="override"/>
+                  <descriptorRefs combine.self="override" />
                 </configuration>
               </execution>
             </executions>
