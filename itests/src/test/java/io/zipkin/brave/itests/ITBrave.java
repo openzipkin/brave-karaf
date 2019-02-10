@@ -47,7 +47,7 @@ import zipkin2.reporter.Sender;
 
 @RunWith(PaxExam.class)
 @ExamReactorStrategy(PerClass.class)
-public class BraveTest {
+public class ITBrave {
   private static final String FILTER_KAFKA = "(component.name=io.zipkin.sender.kafka)";
   private static final String FILTER_OKHTTP = "(component.name=io.zipkin.sender.okhttp)";
   private static final String FILTER_URLCONNECTION =
@@ -117,7 +117,7 @@ public class BraveTest {
 
   static String getVersionFromMaven(String path) throws Exception {
     InputStream is =
-        BraveTest.class.getResourceAsStream("/META-INF/maven/" + path + "/pom.properties");
+        ITBrave.class.getResourceAsStream("/META-INF/maven/" + path + "/pom.properties");
     Assert.assertNotNull(is);
     Properties p = new Properties();
     p.load(is);
@@ -125,7 +125,7 @@ public class BraveTest {
   }
 
   static String getBraveKarafVersion() throws Exception {
-    InputStream is = BraveTest.class.getResourceAsStream("/exam.properties");
+    InputStream is = ITBrave.class.getResourceAsStream("/exam.properties");
     Assert.assertNotNull(is);
     Properties p = new Properties();
     p.load(is);
