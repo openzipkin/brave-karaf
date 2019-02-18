@@ -63,7 +63,7 @@
   </properties>
 
   <name>Brave Karaf (Parent)</name>
-  <description>Brave Karaf (Parent)</description>
+  <description>Apache Zipkin Brave (incubating) for Apache Karaf (Parent)</description>
   <url>https://github.com/apache/incubator-zipkin-brave-karaf</url>
   <inceptionYear>2016</inceptionYear>
 
