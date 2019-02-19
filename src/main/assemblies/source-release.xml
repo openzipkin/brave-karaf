@@ -25,7 +25,7 @@
     <format>zip</format>
   </formats>
 
-  <!-- Inlined.. patched from https://github.com/apache/maven-resources/blob/dfd6e72035380fc3bd573d55f0c5b77c903d6431/apache-source-release-assembly-descriptor/pom.xml -->
+  <!-- Inlined to exclude all maven wrapper artifacts. This allows us to avoid NOTICE citations -->
   <fileSets>
     <!-- main project directory structure -->
     <fileSet>
@@ -33,6 +33,11 @@
       <outputDirectory></outputDirectory>
       <useDefaultExcludes>true</useDefaultExcludes>
       <excludes>
+        <!-- PATCH: Maven wrapper -->
+        <exclude>.mvn/**</exclude>
+        <exclude>mvnw</exclude>
+        <exclude>mvnw.cmd</exclude>
+
         <!-- build output -->
         <exclude>%regex[(?!((?!${project.build.directory}/)[^/]+/)*src/).*${project.build.directory}.*]</exclude>
 
@@ -47,10 +52,6 @@
              or generate a project website, it's definitely possible that some
              of these files will be present. So, it's safer to exclude them.
         -->
-
-        <!-- PATCH: Maven wrapper binaries -->
-        <exclude>.mvn/wrapper/maven-wrapper.jar</exclude>
-        <exclude>.mvn/wrapper/MavenWrapperDownloader.class</exclude>
 
         <!-- IDEs -->
         <exclude>%regex[(?!((?!${project.build.directory}/)[^/]+/)*src/)(.*/)?maven-eclipse\.xml]</exclude>
