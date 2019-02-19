@@ -57,6 +57,12 @@
   <build>
     <plugins>
       <plugin>
+        <artifactId>maven-remote-resources-plugin</artifactId>
+        <configuration>
+          <skip>false</skip>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>biz.aQute.bnd</groupId>
         <artifactId>bnd-maven-plugin</artifactId>
       </plugin>

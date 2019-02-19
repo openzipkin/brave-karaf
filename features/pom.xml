@@ -41,6 +41,12 @@
     </resources>
     <plugins>
       <plugin>
+        <artifactId>maven-remote-resources-plugin</artifactId>
+        <configuration>
+          <skip>false</skip>
+        </configuration>
+      </plugin>
+      <plugin>
         <artifactId>maven-resources-plugin</artifactId>
         <executions>
           <execution>
