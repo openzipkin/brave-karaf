@@ -33,6 +33,9 @@
       <outputDirectory></outputDirectory>
       <useDefaultExcludes>true</useDefaultExcludes>
       <excludes>
+        <!-- PATCH: Jenkinsfile -->
+        <exclude>Jenkinsfile</exclude>
+
         <!-- PATCH: Maven wrapper -->
         <exclude>.mvn/**</exclude>
         <exclude>mvnw</exclude>
