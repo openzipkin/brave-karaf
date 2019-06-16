@@ -90,7 +90,7 @@
   <distributionManagement>
     <repository>
       <id>bintray</id>
-      <url>https://api.bintray.com/maven/openzipkin/maven/brave-cassandra/;publish=1</url>
+      <url>https://api.bintray.com/maven/openzipkin/maven/brave-karaf/;publish=1</url>
     </repository>
     <snapshotRepository>
       <id>jfrog-snapshots</id>
@@ -254,7 +254,7 @@
           <artifactId>centralsync-maven-plugin</artifactId>
           <version>0.1.1</version>
           <configuration>
-            <packageName>brave-cassandra</packageName>
+            <packageName>brave-karaf</packageName>
           </configuration>
         </plugin>
       </plugins>
