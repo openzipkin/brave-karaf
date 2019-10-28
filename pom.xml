@@ -42,12 +42,12 @@
 
     <!-- override to set exclusions per-project -->
     <errorprone.args />
-    <errorprone.version>2.3.2</errorprone.version>
+    <errorprone.version>2.3.3</errorprone.version>
 
     <!-- Make sure these versions match brave-bom -->
-    <brave.version>5.6.5</brave.version>
-    <zipkin.version>2.14.2</zipkin.version>
-    <zipkin-reporter.version>2.8.4</zipkin-reporter.version>
+    <brave.version>5.8.1-SNAPSHOT</brave.version>
+    <zipkin.version>2.17.0</zipkin.version>
+    <zipkin-reporter.version>2.10.3</zipkin-reporter.version>
 
     <license-maven-plugin.version>3.0</license-maven-plugin.version>
     <maven-failsafe-plugin.version>3.0.0-M3</maven-failsafe-plugin.version>
@@ -155,6 +155,11 @@
         <artifactId>brave-instrumentation-http</artifactId>
         <version>${brave.version}</version>
       </dependency>
+      <dependency>
+        <groupId>io.zipkin.brave</groupId>
+        <artifactId>brave-instrumentation-rpc</artifactId>
+        <version>${brave.version}</version>
+      </dependency>
 
       <dependency>
         <groupId>org.osgi</groupId>
@@ -170,12 +175,15 @@
       <dependency>
         <groupId>org.awaitility</groupId>
         <artifactId>awaitility</artifactId>
-        <version>3.1.6</version>
+        <version>4.0.1</version>
       </dependency>
       <dependency>
         <groupId>org.mockito</groupId>
         <artifactId>mockito-core</artifactId>
-        <version>2.24.0</version>
+        <!-- Up to v2.27.0 of mockito has a conflict https://github.com/mockito/mockito/issues/1606
+java.lang.NoSuchMethodError: net.bytebuddy.dynamic.loading.MultipleParentClassLoader$Builder.appendMostSpecific(Ljava/util/Collection;)Lnet/bytebuddy/dynamic/loading/MultipleParentClassLoader$Builder
+        -->
+        <version>2.23.4</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -190,7 +198,7 @@
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>3.12.1</version>
+      <version>3.13.2</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -210,14 +218,14 @@
           <artifactId>maven</artifactId>
           <version>0.7.6</version>
           <configuration>
-            <maven>3.6.1</maven>
+            <maven>3.6.2</maven>
           </configuration>
         </plugin>
 
         <plugin>
           <groupId>biz.aQute.bnd</groupId>
           <artifactId>bnd-maven-plugin</artifactId>
-          <version>4.1.0</version>
+          <version>4.3.0</version>
           <executions>
             <execution>
               <goals>
@@ -323,7 +331,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>animal-sniffer-maven-plugin</artifactId>
-        <version>1.17</version>
+        <version>1.18</version>
         <configuration>
           <signature>
             <groupId>org.codehaus.mojo.signature</groupId>
@@ -495,7 +503,7 @@
 
           <plugin>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <version>3.1.0</version>
+            <version>3.1.1</version>
             <configuration>
               <failOnError>false</failOnError>
               <!-- hush pedantic warnings: we don't put param and return on everything! -->

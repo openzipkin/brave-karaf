@@ -13,6 +13,8 @@
  */
 package io.zipkin.brave.exporter;
 
+import brave.Tracing;
+import brave.rpc.RpcTracing;
 import java.util.Hashtable;
 import java.util.Map;
 import org.osgi.framework.BundleContext;
@@ -21,34 +23,28 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
-import zipkin2.Span;
-import zipkin2.reporter.AsyncReporter;
-import zipkin2.reporter.Reporter;
-import zipkin2.reporter.Sender;
 
 @Component(
     immediate = true,
-    name = "io.zipkin.asyncreporter"
+    name = "io.zipkin.brave.rpc"
 )
-public class AsyncReporterExporter {
+public class RpcTracingExporter {
   @Reference
-  Sender sender;
+  Tracing tracing;
 
-  private AsyncReporter<Span> reporter;
-  @SuppressWarnings("rawtypes")
-  private ServiceRegistration<Reporter> reg;
+  private ServiceRegistration<RpcTracing> reg;
 
   @Activate
   public void activate(BundleContext context, Map<String, String> properties) {
-    reporter = AsyncReporter.builder(sender)
+    RpcTracing rpcTracing = RpcTracing.newBuilder(tracing)
         .build();
-    reg = context.registerService(Reporter.class, reporter,
+    reg = context.registerService(RpcTracing.class, rpcTracing,
         new Hashtable<String, String>(properties));
   }
 
   @Deactivate
   public void deactive() {
     reg.unregister();
-    if (reporter != null) reporter.close();
   }
+
 }

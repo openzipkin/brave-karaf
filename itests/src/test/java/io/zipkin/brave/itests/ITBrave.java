@@ -13,19 +13,10 @@
  */
 package io.zipkin.brave.itests;
 
-import static org.ops4j.pax.exam.CoreOptions.maven;
-import static org.ops4j.pax.exam.cm.ConfigurationAdminOptions.newConfiguration;
-import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.configureConsole;
-import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.features;
-import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.karafDistributionConfiguration;
-import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.keepRuntimeFolder;
-import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.logLevel;
-
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.Properties;
 import javax.inject.Inject;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,8 +30,15 @@ import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
 import org.ops4j.pax.exam.spi.reactors.PerClass;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
-
 import zipkin2.reporter.Sender;
+
+import static org.ops4j.pax.exam.CoreOptions.maven;
+import static org.ops4j.pax.exam.cm.ConfigurationAdminOptions.newConfiguration;
+import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.configureConsole;
+import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.features;
+import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.karafDistributionConfiguration;
+import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.keepRuntimeFolder;
+import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.logLevel;
 
 @RunWith(PaxExam.class)
 @ExamReactorStrategy(PerClass.class)
