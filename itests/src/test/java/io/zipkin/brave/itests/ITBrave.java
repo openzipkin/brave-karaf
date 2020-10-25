@@ -33,6 +33,7 @@ import org.ops4j.pax.exam.junit.PaxExam;
 import org.ops4j.pax.exam.karaf.options.LogLevelOption.LogLevel;
 import org.ops4j.pax.exam.options.MavenArtifactUrlReference;
 import org.ops4j.pax.exam.options.MavenUrlReference;
+import org.ops4j.pax.exam.options.extra.VMOption;
 import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
 import org.ops4j.pax.exam.spi.reactors.PerClass;
 import org.osgi.framework.BundleContext;
@@ -57,15 +58,16 @@ public class ITBrave {
   @Inject BundleContext context;
 
   @Configuration public static Option[] configuration() throws Exception {
+    final String karafVersion = getVersionFromMaven("org.apache.karaf.features/org.apache.karaf.features.core");
     MavenArtifactUrlReference karaf = maven().groupId("org.apache.karaf").artifactId("apache-karaf")
         .type("zip")
-        .version(getVersionFromMaven("org.apache.karaf.features/org.apache.karaf.features.core"));
+        .version(karafVersion);
     MavenUrlReference brave =
         maven().groupId("io.zipkin.brave.karaf").artifactId("brave-features").type("xml")
             .classifier("features").version(getBraveKarafVersion());
     return new Option[] {
         karafDistributionConfiguration().frameworkUrl(karaf).useDeployFolder(false),
-        configureConsole().ignoreLocalConsole(),
+        configureConsole().ignoreLocalConsole().ignoreRemoteShell(),
         logLevel(LogLevel.INFO),
         keepRuntimeFolder(),
         features(brave, "brave", "brave-sender-kafka", "brave-sender-okhttp"),
@@ -77,7 +79,12 @@ public class ITBrave {
         newConfiguration("io.zipkin.brave.asynczipkinspanhandler").asOption(),
         newConfiguration("io.zipkin.brave.http").asOption(),
         newConfiguration("io.zipkin.brave.messaging").asOption(),
-        newConfiguration("io.zipkin.brave.rpc").asOption()
+        newConfiguration("io.zipkin.brave.rpc").asOption(),
+        new VMOption("--add-exports=java.base/org.apache.karaf.specs.locator=java.xml,ALL-UNNAMED"),
+        new VMOption("--patch-module"),
+        new VMOption("java.base=lib/endorsed/org.apache.karaf.specs.locator-" + karafVersion + ".jar"),
+        new VMOption("--patch-module"),
+        new VMOption("java.xml=lib/endorsed/org.apache.karaf.specs.java.xml-" + karafVersion + ".jar")
     };
   }
 
