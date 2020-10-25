@@ -90,14 +90,14 @@
   </developers>
 
   <distributionManagement>
-    <repository>
-      <id>bintray</id>
-      <url>https://api.bintray.com/maven/openzipkin/maven/brave-karaf/;publish=1</url>
-    </repository>
     <snapshotRepository>
-      <id>sonatype-snapshots</id>
+      <id>ossrh</id>
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
   </distributionManagement>
 
   <issueManagement>
@@ -264,15 +264,6 @@
             <releaseProfiles>release</releaseProfiles>
             <autoVersionSubmodules>true</autoVersionSubmodules>
             <tagNameFormat>@{project.version}</tagNameFormat>
-          </configuration>
-        </plugin>
-
-        <plugin>
-          <groupId>io.zipkin.centralsync-maven-plugin</groupId>
-          <artifactId>centralsync-maven-plugin</artifactId>
-          <version>0.1.1</version>
-          <configuration>
-            <packageName>brave-karaf</packageName>
           </configuration>
         </plugin>
       </plugins>
@@ -452,6 +443,18 @@
       <id>release</id>
       <build>
         <plugins>
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <version>1.6.8</version>
+            <extensions>true</extensions>
+            <configuration>
+              <serverId>ossrh</serverId>
+              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+              <autoReleaseAfterClose>true</autoReleaseAfterClose>
+            </configuration>
+          </plugin>
+
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>

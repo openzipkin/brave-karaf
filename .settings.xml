@@ -24,17 +24,7 @@
       <passphrase>${env.GPG_PASSPHRASE}</passphrase>
     </server>
     <server>
-      <id>sonatype</id>
-      <username>${env.SONATYPE_USER}</username>
-      <password>${env.SONATYPE_PASSWORD}</password>
-    </server>
-    <server>
-      <id>bintray</id>
-      <username>${env.BINTRAY_USER}</username>
-      <password>${env.BINTRAY_KEY}</password>
-    </server>
-    <server>
-      <id>sonatype-snapshots</id>
+      <id>ossrh</id>
       <username>${env.SONATYPE_USER}</username>
       <password>${env.SONATYPE_PASSWORD}</password>
     </server>
