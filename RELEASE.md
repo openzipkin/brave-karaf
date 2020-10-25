@@ -1,4 +1,4 @@
-# Zipkin Release Process
+# OpenZipkin Release Process
 
 This repo uses semantic versions. Please keep this in mind when choosing version numbers.
 
