@@ -73,7 +73,10 @@ $ git commit -am"Adjusts copyright headers for this year"
 
 ## Manually releasing
 
-If for some reason, you lost access to CI or otherwise cannot get automation to work, bear in mind this is a normal maven project, and can be released accordingly. The main thing to understand is that libraries are not GPG signed here (it happens at bintray), and also that there is a utility to synchronise to maven central. Note that if for some reason [bintray is down](https://status.bintray.com/), the below will not work.
+If for some reason, you lost access to CI or otherwise cannot get automation to work, bear in mind
+this is a normal maven project, and can be released accordingly.
+
+*Note:* If [Sonatype is down](https://status.sonatype.com/), the below will not work.
 
 ```bash
 # First, set variable according to your personal credentials. These would normally be decrypted from .travis.yml
