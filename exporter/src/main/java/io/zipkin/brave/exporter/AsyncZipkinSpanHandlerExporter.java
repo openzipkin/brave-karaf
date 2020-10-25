@@ -13,8 +13,7 @@
  */
 package io.zipkin.brave.exporter;
 
-import brave.Tracing;
-import brave.http.HttpTracing;
+import brave.handler.SpanHandler;
 import java.util.Hashtable;
 import java.util.Map;
 import org.osgi.framework.BundleContext;
@@ -23,25 +22,28 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
+import zipkin2.reporter.Sender;
+import zipkin2.reporter.brave.AsyncZipkinSpanHandler;
 
 @Component(
     immediate = true,
-    name = "io.zipkin.brave.http"
+    name = "io.zipkin.brave.asynczipkinspanhandler"
 )
-public class HttpTracingExporter {
-  @Reference Tracing tracing;
+public class AsyncZipkinSpanHandlerExporter {
+  @Reference Sender sender;
 
-  private HttpTracing httpTracing;
-  private ServiceRegistration<HttpTracing> reg;
+  private AsyncZipkinSpanHandler zipkinSpanHandler;
+  @SuppressWarnings("rawtypes")
+  private ServiceRegistration<SpanHandler> reg;
 
   @Activate public void activate(BundleContext context, Map<String, String> properties) {
-    httpTracing = HttpTracing.newBuilder(tracing).build();
-    reg = context.registerService(HttpTracing.class, httpTracing,
+    zipkinSpanHandler = AsyncZipkinSpanHandler.newBuilder(sender).build();
+    reg = context.registerService(SpanHandler.class, zipkinSpanHandler,
         new Hashtable<String, String>(properties));
   }
 
   @Deactivate public void deactive() {
     reg.unregister();
-    if (httpTracing != null) httpTracing.close();
+    if (zipkinSpanHandler != null) zipkinSpanHandler.close();
   }
 }

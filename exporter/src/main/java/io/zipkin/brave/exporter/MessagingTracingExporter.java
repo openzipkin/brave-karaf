@@ -14,7 +14,7 @@
 package io.zipkin.brave.exporter;
 
 import brave.Tracing;
-import brave.http.HttpTracing;
+import brave.messaging.MessagingTracing;
 import java.util.Hashtable;
 import java.util.Map;
 import org.osgi.framework.BundleContext;
@@ -26,22 +26,22 @@ import org.osgi.service.component.annotations.Reference;
 
 @Component(
     immediate = true,
-    name = "io.zipkin.brave.http"
+    name = "io.zipkin.brave.messaging"
 )
-public class HttpTracingExporter {
+public class MessagingTracingExporter {
   @Reference Tracing tracing;
 
-  private HttpTracing httpTracing;
-  private ServiceRegistration<HttpTracing> reg;
+  private MessagingTracing messagingTracing;
+  private ServiceRegistration<MessagingTracing> reg;
 
   @Activate public void activate(BundleContext context, Map<String, String> properties) {
-    httpTracing = HttpTracing.newBuilder(tracing).build();
-    reg = context.registerService(HttpTracing.class, httpTracing,
+    messagingTracing = MessagingTracing.newBuilder(tracing).build();
+    reg = context.registerService(MessagingTracing.class, messagingTracing,
         new Hashtable<String, String>(properties));
   }
 
   @Deactivate public void deactive() {
     reg.unregister();
-    if (httpTracing != null) httpTracing.close();
+    if (messagingTracing != null) messagingTracing.close();
   }
 }

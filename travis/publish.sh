@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright 2016-2019 The OpenZipkin Authors
+# Copyright 2016-2020 The OpenZipkin Authors
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
 # in compliance with the License. You may obtain a copy of the License at
@@ -113,8 +113,8 @@ if ! is_pull_request && build_started_by_tag; then
   check_release_tag
 fi
 
-# skip license on travis due to #1512
-./mvnw install -nsu -Dlicense.skip=true
+# skip license on travis due to #1512, ensure nothing in release profile will fail
+./mvnw install -nsu -Dlicense.skip=true -Prelease
 
 # If we are on a pull request, our only job is to run tests, which happened above via ./mvnw install
 if is_pull_request; then
