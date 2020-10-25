@@ -95,10 +95,11 @@
       <url>https://api.bintray.com/maven/openzipkin/maven/brave-karaf/;publish=1</url>
     </repository>
     <snapshotRepository>
-      <id>jfrog-snapshots</id>
-      <url>https://oss.jfrog.org/artifactory/oss-snapshot-local</url>
+      <id>sonatype-snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
+
   <issueManagement>
     <system>Github</system>
     <url>https://github.com/openzipkin/brave-karaf/issues</url>
