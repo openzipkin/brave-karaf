@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 The OpenZipkin Authors
+ * Copyright 2016-2020 The OpenZipkin Authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -48,13 +48,12 @@ public class URLConnectionSenderExporter {
     reg = context.registerService(Sender.class, sender, new Hashtable<String, String>(properties));
   }
 
-  @Deactivate
-  public void deactive() {
+  @Deactivate public void deactive() {
     reg.unregister();
     if (sender != null) sender.close();
   }
 
-  public static @ObjectClassDefinition(name = "Zipkin Sender URLConnection") @interface Config {
+  public @ObjectClassDefinition(name = "Zipkin Sender URLConnection") @interface Config {
     String endpoint() default "http://localhost:9411/api/v2/spans";
 
     boolean compressionEnabled() default true;
