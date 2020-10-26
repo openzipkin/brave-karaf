@@ -168,6 +168,7 @@
       <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
         <configuration>
+            <!-- Prevents 'System Exit has timed out in the forked process 1' -->
             <forkNode implementation="org.apache.maven.plugin.surefire.extensions.SurefireForkNodeFactory"/>
         </configuration>
         <executions>
