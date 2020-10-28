@@ -23,7 +23,7 @@ before_install:
     sudo apt-get -y install openjdk-${OPENJDK_VERSION}-jdk
     export JAVA_HOME=/usr/lib/jvm/java-${OPENJDK_VERSION}-openjdk-${TRAVIS_CPU_ARCH}/
     ./mvnw -version
-
+  - |
     # Credentials entered into https://travis-ci.org/github/openzipkin/${REPO}/settings are access
     # controlled by branch (typically only master). Check to see if a well-known env is available
     # before attempting to log in.
