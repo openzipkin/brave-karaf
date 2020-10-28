@@ -1,5 +1,11 @@
 # Run `travis lint` when changing this file to avoid breaking the build.
-dist: focal
+
+# We use LXD containers where possible as they boot much faster than full VMs
+# See https://docs.travis-ci.com/user/reference/overview/#for-a-particular-travisyml-configuration
+arch: arm64           # LXD container based build for OSS only
+os: linux             # required for arch different than amd64
+dist: focal           # newest available distribution
+
 language: java
 # Intentionally don't use "jdk" key as it is coupled to jdk.java.net availability.
 addons:
@@ -15,9 +21,9 @@ before_install:
     # Use JDK 11, so we can release Java 6 bytecode
     OPENJDK_VERSION=11
     sudo apt-get -y install openjdk-${OPENJDK_VERSION}-jdk
-    export JAVA_HOME=/usr/lib/jvm/java-${OPENJDK_VERSION}-openjdk-amd64/
+    export JAVA_HOME=/usr/lib/jvm/java-${OPENJDK_VERSION}-openjdk-${TRAVIS_CPU_ARCH}/
     ./mvnw -version
-
+  - |
     # Credentials entered into https://travis-ci.org/github/openzipkin/${REPO}/settings are access
     # controlled by branch (typically only master). Check to see if a well-known env is available
     # before attempting to log in.
