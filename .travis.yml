@@ -12,7 +12,7 @@ cache:
 
 before_install:
   - |
-    # Use OS package to update JDK
+    # Use JDK 11, so we can release Java 6 bytecode
     OPENJDK_VERSION=11
     sudo apt-get -y install openjdk-${OPENJDK_VERSION}-jdk
     export JAVA_HOME=/usr/lib/jvm/java-${OPENJDK_VERSION}-openjdk-amd64/
