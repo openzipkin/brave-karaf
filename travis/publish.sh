@@ -14,7 +14,6 @@
 #
 
 set -euo pipefail
-set -x
 
 build_started_by_tag() {
   if [ "${TRAVIS_TAG}" == "" ]; then
@@ -76,13 +75,12 @@ print_project_version() {
   ./mvnw help:evaluate -N -Dexpression=project.version|sed -n '/^[0-9]/p'
 }
 
-is_release_commit() {
+cleanup_release_trigger() {
   project_version="$(print_project_version)"
   if [[ "$project_version" =~ ^[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+$ ]]; then
-    echo "Build started by release commit $project_version. Will synchronize to maven central."
+    # cleanup the release trigger, but don't fail if it was already there
+    git push origin :"release-$project_version" || true
     return 0
-  else
-    return 1
   fi
 }
 
@@ -125,6 +123,8 @@ if is_pull_request; then
 #    sonatype and try again: https://oss.sonatype.org/#stagingRepositories
 elif is_travis_branch_master; then
   ./mvnw --batch-mode -s ./.settings.xml -Prelease -nsu -DskipTests deploy
+
+  cleanup_release_trigger
 
 # If we are on a release tag, the following will update any version references and push a version tag for deployment.
 elif build_started_by_tag; then
