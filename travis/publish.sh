@@ -13,7 +13,7 @@
 # the License.
 #
 
-set -euo pipefail
+set -euxo pipefail
 
 build_started_by_tag() {
   if [ "${TRAVIS_TAG}" == "" ]; then
@@ -72,20 +72,23 @@ check_release_tag() {
 }
 
 print_project_version() {
-  ./mvnw help:evaluate -N -Dexpression=project.version|sed -n '/^[0-9]/p'
+  # Cache as help:evaluate is not quick
+  export POM_VERSION=${POM_VERSION:-$(mvn help:evaluate -N -Dexpression=project.version -q -DforceStdout)}
+  echo "${POM_VERSION}"
 }
 
-cleanup_release_trigger() {
+is_release_version() {
   project_version="$(print_project_version)"
   if [[ "$project_version" =~ ^[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+$ ]]; then
-    # cleanup the release trigger, but don't fail if it was already there
-    git push origin :"release-$project_version" || true
+    echo "Build started by release commit $project_version. Will synchronize to maven central."
     return 0
+  else
+    return 1
   fi
 }
 
 release_version() {
-    echo "${TRAVIS_TAG}" | sed 's/^release-//'
+  echo "${TRAVIS_TAG}" | sed 's/^release-//'
 }
 
 safe_checkout_master() {
@@ -111,8 +114,14 @@ if ! is_pull_request && build_started_by_tag; then
   check_release_tag
 fi
 
-# skip license on travis due to #1512
-./mvnw install -nsu -Dlicense.skip=true
+# During a release upload, don't run tests as they can flake or overrun the max time allowed by Travis.
+if is_release_version; then
+  true
+else
+  # verify runs both tests and integration tests (Docker tests included)
+  # -Dlicense.skip=true skips license on Travis due to #1512
+  ./mvnw verify -nsu -Dlicense.skip=true
+fi
 
 # If we are on a pull request, our only job is to run tests, which happened above via ./mvnw install
 if is_pull_request; then
@@ -120,11 +129,15 @@ if is_pull_request; then
 
 # If we are on master, we will deploy the latest snapshot or release version
 #  * If a release commit fails to deploy for a transient reason, drop to staging repository in
-#    sonatype and try again: https://oss.sonatype.org/#stagingRepositories
+#    Sonatype and try again: https://oss.sonatype.org/#stagingRepositories
 elif is_travis_branch_master; then
+  # -Prelease ensures the core jar ends up JRE 1.6 compatible
   ./mvnw --batch-mode -s ./.settings.xml -Prelease -nsu -DskipTests deploy
 
-  cleanup_release_trigger
+  if is_release_version; then
+    # cleanup the release trigger, but don't fail if it was already there
+    git push origin :"release-$(print_project_version)" || true
+  fi
 
 # If we are on a release tag, the following will update any version references and push a version tag for deployment.
 elif build_started_by_tag; then

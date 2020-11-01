@@ -10,7 +10,7 @@ This repo uses semantic versions. Please keep this in mind when choosing version
 
 1. **Push a git tag**
 
-   The tag should be of the format `release-N.M.L`, for example `release-3.7.1`.
+   The tag should be of the format `release-N.M.L`, ex `git tag release-1.18.1; git push origin release-1.18.1`.
 
 1. **Wait for Travis CI**
 
@@ -19,31 +19,14 @@ This repo uses semantic versions. Please keep this in mind when choosing version
 
 ## Credentials
 
-Credentials of various kind are needed for the release process to work. If you notice something
-failing due to unauthorized, re-encrypt them using instructions at the bottom of the `.travis.yml`
-
-Ex You'll see comments like this:
-```yaml
-env:
-  global:
-  # Ex. travis encrypt SONATYPE_USER=your_sonatype_account
-  - secure: "VeTO...
-```
-
-To re-encrypt, you literally run the commands with relevant values and replace the "secure" key with the output:
-
-```bash
-$ travis encrypt SONATYPE_USER=adrianmole
-Please add the following to your .travis.yml file:
-
-  secure: "mQnECL+dXc5l9wCYl/wUz+AaYFGt/1G31NAZcTLf2RbhKo8mUenc4hZNjHCEv+4ZvfYLd/NoTNMhTCxmtBMz1q4CahPKLWCZLoRD1ExeXwRymJPIhxZUPzx9yHPHc5dmgrSYOCJLJKJmHiOl9/bJi123456="
-```
+The release process uses various credentials. If you notice something failing due to unauthorized,
+look at the notes in [.travis.yml] and check the [project settings](https://travis-ci.org/github/openzipkin/zipkin/settings)
 
 ### Troubleshooting invalid credentials
 
-If you receive a '401 unauthorized' failure from OSSRH, it is
-likely `SONATYPE_USER` or `SONATYPE_PASSWORD` entries are invalid, or possibly the user
-associated with them does not have rights to upload.
+If you receive a '401 unauthorized' failure from OSSRH, it is likely
+`SONATYPE_USER` or `SONATYPE_PASSWORD` entries are invalid, or possibly the
+user associated with them does not have rights to upload.
 
 The least destructive test is to try to publish a snapshot manually. By passing
 the values Travis would use, you can kick off a snapshot from your laptop. This
