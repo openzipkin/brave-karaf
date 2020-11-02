@@ -6,6 +6,10 @@ arch: arm64           # LXD container based build for OSS only
 os: linux             # required for arch different than amd64
 dist: focal           # newest available distribution
 
+# Don't do a shallow clone to allow license plugin to correctly read git history.
+git:
+  depth: false
+
 language: java
 
 cache:
@@ -14,6 +18,7 @@ cache:
 
 before_install:
   - |
+    # Intentionally don't use "jdk" Travis apt key as it is coupled to jdk.java.net availability.
     # Use JDK 11, so we can release Java 6 bytecode
     OPENJDK_VERSION=11
     sudo apt-get -y install openjdk-${OPENJDK_VERSION}-jdk
@@ -44,8 +49,10 @@ before_install:
       echo ${GPG_SIGNING_KEY} | base64 --decode | gpg --batch --passphrase ${GPG_PASSPHRASE} --import
     fi
 
-# Override default travis to use the maven wrapper; skip license on travis due to #1512
-install: ./mvnw install -DskipTests=true -Dlicense.skip=true -Dmaven.javadoc.skip=true -B -V
+install:
+  - |
+    # use a go-offline that properly works with multi-module builds
+    ./mvnw -q --batch-mode -nsu -Prelease de.qaware.maven:go-offline-maven-plugin:resolve-dependencies
 script: ./travis/publish.sh
 
 # Don't build release tags. This avoids publish conflicts because the version commit exists both on master and the release tag.
