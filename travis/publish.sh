@@ -118,9 +118,8 @@ fi
 if is_release_version; then
   true
 else
-  # verify runs both tests and integration tests (Docker tests included)
-  # -Dlicense.skip=true skips license on Travis due to #1512
-  ./mvnw verify -nsu -Dlicense.skip=true
+  # verify runs both tests and integration tests
+  ./mvnw verify -nsu
 fi
 
 # If we are on a pull request, our only job is to run tests, which happened above via ./mvnw install
@@ -132,7 +131,7 @@ if is_pull_request; then
 #    Sonatype and try again: https://oss.sonatype.org/#stagingRepositories
 elif is_travis_branch_master; then
   # -Prelease ensures the core jar ends up JRE 1.6 compatible
-  ./mvnw --batch-mode -s ./.settings.xml -Prelease -nsu -DskipTests -Dlicense.skip=true deploy
+  ./mvnw --batch-mode -s ./.settings.xml -Prelease -nsu -DskipTests deploy
 
   if is_release_version; then
     # cleanup the release trigger, but don't fail if it was already there
@@ -142,6 +141,5 @@ elif is_travis_branch_master; then
 # If we are on a release tag, the following will update any version references and push a version tag for deployment.
 elif build_started_by_tag; then
   safe_checkout_master
-  # skip license on travis due to #1512
-  ./mvnw --batch-mode -s ./.settings.xml -Prelease -nsu -DreleaseVersion="$(release_version)" -Darguments="-DskipTests -Dlicense.skip=true" release:prepare
+  ./mvnw --batch-mode -s ./.settings.xml -Prelease -nsu -DreleaseVersion="$(release_version)" -Darguments="-DskipTests" release:prepare
 fi
