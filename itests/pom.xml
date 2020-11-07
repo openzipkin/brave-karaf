@@ -158,27 +158,6 @@
       </testResource>
     </testResources>
     <plugins>
-      <!-- The integration test suite is not a valid dependency to others -->
-      <plugin>
-        <artifactId>maven-install-plugin</artifactId>
-        <configuration>
-          <skip>true</skip>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <configuration>
-          <skip>true</skip>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-        <configuration>
-          <skipStaging>true</skipStaging>
-        </configuration>
-      </plugin>
-
       <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
         <configuration>

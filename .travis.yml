@@ -17,20 +17,11 @@ cache:
   directories:
     - $HOME/.m2
 
+# Re-use JDK 11 from focal release instead of delaying build with installation
 before_install:
-  - |
-    # Intentionally don't use "jdk" Travis apt key as it is coupled to jdk.java.net availability.
-    # Use JDK 11, so we can release Java 6 bytecode
-    OPENJDK_VERSION=11
-    sudo apt-get -y install openjdk-${OPENJDK_VERSION}-jdk
-    export JAVA_HOME=/usr/lib/jvm/java-${OPENJDK_VERSION}-openjdk-${TRAVIS_CPU_ARCH}/
-    ./mvnw -version
   - |
     # Cache as help:evaluate is not quick
     export POM_VERSION=$(./mvnw help:evaluate -N -Dexpression=project.version -q -DforceStdout)
-
-    # Disable testcontainers checks
-    echo checks.disable=true > ~/.testcontainers.properties
   - |
     # Credentials entered into https://travis-ci.org/github/openzipkin/${REPO}/settings are access
     # controlled by branch (typically only master). Check to see if a well-known env is available
