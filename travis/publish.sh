@@ -118,8 +118,9 @@ fi
 if is_release_version; then
   true
 else
-  # verify runs both tests and integration tests
-  ./mvnw verify -nsu
+  # install runs both tests and integration tests, we need Karaf feature to be installed 
+  # into local M2 repo, otherwise it won't be found by integration tests
+  ./mvnw install -nsu
 fi
 
 # If we are on a pull request, our only job is to run tests, which happened above via ./mvnw install
