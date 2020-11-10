@@ -14,18 +14,13 @@ This repo uses semantic versions. Please keep this in mind when choosing version
 
 1. **Wait for Travis CI**
 
-   Release automation invokes [`travis/publish.sh`](travis/publish.sh), which does the following:
-     * Creates commits, N.N.N tag, and increments the version (maven-release-plugin)
-     * Publishes jars to https://oss.sonatype.org/service/local/staging/deploy/maven2 (maven-deploy-plugin)
-       * Upon close, this synchronizes jars to Maven Central (nexus-staging-maven-plugin)
-
-   Notes:
-     * https://search.maven.org/ index will take longer than direct links like https://repo1.maven.org/maven2/io/zipkin
+   This part is controlled by [`travis/publish.sh`](travis/publish.sh). It creates a bunch of new commits, bumps
+   the version, publishes artifacts and syncs to Maven Central.
 
 ## Credentials
 
 The release process uses various credentials. If you notice something failing due to unauthorized,
-look at the notes in [.travis.yml] and check the [project settings](https://travis-ci.org/github/openzipkin/zipkin/settings)
+look at the notes in [.travis.yml] and check the [project settings](https://travis-ci.com/github/openzipkin/zipkin/settings)
 
 ### Troubleshooting invalid credentials
 
@@ -39,7 +34,7 @@ is a good way to validate that your unencrypted credentials are authorized.
 
 Here's an example of a snapshot deploy with specified credentials.
 ```bash
-$ export GPG_TTY=$(tty) && GPG_PASSPHRASE=whackamole SONATYPE_USER=adrianmole SONATYPE_PASSWORD=ed6f20bde9123bbb2312b221 TRAVIS_PULL_REQUEST=false TRAVIS_TAG= TRAVIS_BRANCH=master travis/publish.sh
+$ export GPG_TTY=$(tty) && GPG_PASSPHRASE=whackamole SONATYPE_USER=adrianmole SONATYPE_PASSWORD=ed6f20bde9123bbb2312b221 ./mvnw --batch-mode -s ./.settings.xml -Prelease -nsu -DskipTests deploy
 ```
 
 ## First release of the year
@@ -60,30 +55,28 @@ $ git commit -am"Adjusts copyright headers for this year"
 ```
 
 ## Manually releasing
-
 If for some reason, you lost access to CI or otherwise cannot get automation to work, bear in mind
 this is a normal maven project, and can be released accordingly.
 
 *Note:* If [Sonatype is down](https://status.sonatype.com/), the below will not work.
 
+Below is exactly the same as what the [Travis stage: deploy-release](.travis.yml) does.
 ```bash
 # First, set variable according to your personal credentials. These would normally be decrypted from .travis.yml
 export GPG_TTY=$(tty)
 export GPG_PASSPHRASE=your_gpg_passphrase
 export SONATYPE_USER=your_sonatype_account
 export SONATYPE_PASSWORD=your_sonatype_password
-VERSION=xx-version-to-release-xx
+release_version=xx-version-to-release-xx
 
-# now from latest master, prepare the release. We are intentionally deferring pushing commits
-./mvnw --batch-mode -s ./.settings.xml -Prelease -nsu -DreleaseVersion=$VERSION -Darguments="-DskipTests" release:prepare -DpushChanges=false
+# Prepare and push release commits. These commits push immediately as time uploading deployments
+# adds git conflict risk.
+./mvnw --batch-mode -nsu -DreleaseVersion=${release_version} -Darguments=-DskipTests release:prepare
 
-# once this works, deploy and synchronize to maven central
-git checkout $VERSION
+# Once this works, deploy to Sonatype, which synchronizes to maven central
+git checkout ${release_version}
 ./mvnw --batch-mode -s ./.settings.xml -Prelease -nsu -DskipTests deploy
 
-# if all the above worked, clean up stuff and push the local changes.
+# Once all the above worked, clean up the release
 ./mvnw release:clean
-git checkout master
-git push
-git push --tags
 ```
