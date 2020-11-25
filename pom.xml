@@ -42,7 +42,7 @@
 
   <issueManagement>
     <system>Github</system>
-    <url>https://github.com/openzipkin/zipkin-gcp/issues</url>
+    <url>https://github.com/openzipkin/brave-karaf/issues</url>
   </issueManagement>
 
   <properties>
