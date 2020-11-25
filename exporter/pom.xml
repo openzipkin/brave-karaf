@@ -44,26 +44,32 @@
     <dependency>
       <groupId>io.zipkin.brave</groupId>
       <artifactId>brave</artifactId>
+      <version>${brave.version}</version>
     </dependency>
     <dependency>
       <groupId>io.zipkin.brave</groupId>
       <artifactId>brave-instrumentation-http</artifactId>
+      <version>${brave.version}</version>
     </dependency>
     <dependency>
       <groupId>io.zipkin.brave</groupId>
       <artifactId>brave-instrumentation-messaging</artifactId>
+      <version>${brave.version}</version>
     </dependency>
     <dependency>
       <groupId>io.zipkin.brave</groupId>
       <artifactId>brave-instrumentation-rpc</artifactId>
+      <version>${brave.version}</version>
     </dependency>
     <dependency>
       <groupId>io.zipkin.reporter2</groupId>
       <artifactId>zipkin-reporter-brave</artifactId>
+      <version>${zipkin-reporter.version}</version>
     </dependency>
     <dependency>
       <groupId>io.zipkin.reporter2</groupId>
       <artifactId>zipkin-sender-urlconnection</artifactId>
+      <version>${zipkin-reporter.version}</version>
     </dependency>
   </dependencies>
 

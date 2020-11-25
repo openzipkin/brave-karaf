@@ -45,10 +45,12 @@
     <dependency>
       <groupId>io.zipkin.reporter2</groupId>
       <artifactId>zipkin-reporter</artifactId>
+      <version>${zipkin-reporter.version}</version>
     </dependency>
     <dependency>
       <groupId>io.zipkin.reporter2</groupId>
       <artifactId>zipkin-sender-okhttp3</artifactId>
+      <version>${zipkin-reporter.version}</version>
     </dependency>
   </dependencies>
 

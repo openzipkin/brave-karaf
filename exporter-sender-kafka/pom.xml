@@ -45,15 +45,12 @@
     <dependency>
       <groupId>io.zipkin.reporter2</groupId>
       <artifactId>zipkin-reporter</artifactId>
+      <version>${zipkin-reporter.version}</version>
     </dependency>
     <dependency>
       <groupId>io.zipkin.reporter2</groupId>
       <artifactId>zipkin-sender-kafka</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
-      <scope>test</scope>
+      <version>${zipkin-reporter.version}</version>
     </dependency>
   </dependencies>
 
