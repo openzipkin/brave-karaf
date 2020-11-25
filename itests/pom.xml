@@ -33,32 +33,39 @@
     <dependency>
       <groupId>io.zipkin.brave.karaf</groupId>
       <artifactId>brave-exporter</artifactId>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>io.zipkin.reporter2</groupId>
       <artifactId>zipkin-sender-urlconnection</artifactId>
+      <version>${zipkin-reporter.version}</version>
     </dependency>
     <dependency>
       <groupId>io.zipkin.brave</groupId>
       <artifactId>brave</artifactId>
+      <version>${brave.version}</version>
     </dependency>
 
     <dependency>
       <groupId>io.zipkin.brave.karaf</groupId>
       <artifactId>brave-exporter-sender-kafka</artifactId>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>io.zipkin.reporter2</groupId>
       <artifactId>zipkin-sender-kafka</artifactId>
+      <version>${zipkin-reporter.version}</version>
     </dependency>
 
     <dependency>
       <groupId>io.zipkin.brave.karaf</groupId>
       <artifactId>brave-exporter-sender-okhttp</artifactId>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>io.zipkin.reporter2</groupId>
       <artifactId>zipkin-sender-okhttp3</artifactId>
+      <version>${zipkin-reporter.version}</version>
     </dependency>
 
     <!-- Pax Exam Dependencies -->
