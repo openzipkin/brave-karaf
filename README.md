@@ -1,6 +1,6 @@
 [![Gitter chat](http://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg)](https://gitter.im/openzipkin/zipkin)
-[![Build Status](https://travis-ci.com/openzipkin/brave-karaf.svg?branch=master)](https://travis-ci.com/openzipkin/brave-karaf)
-[![Maven Central](https://img.shields.io/maven-central/v/io.zipkin.brave.karaf/brave-instrumentation-karaf.svg)](https://search.maven.org/search?q=g:io.brave.karaf%20AND%20a:brave-instrumentation-karaf)
+[![Build Status](https://github.com/openzipkin/brave-karaf/workflows/test/badge.svg)](https://github.com/openzipkin/brave-karaf/actions?query=workflow%3Atest)
+[![Maven Central](https://img.shields.io/maven-central/v/io.zipkin.brave.karaf/brave-exporter.svg)](https://search.maven.org/search?q=g:io.brave.karaf%20AND%20a:brave-exporter)
 
 Brave for Apache Karaf sets up tracing components such that tools built with Karaf needn't configure
 these explicitly.
