@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2016-2020 The OpenZipkin Authors
+    Copyright 2016-2024 The OpenZipkin Authors
 
     Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
     in compliance with the License. You may obtain a copy of the License at
@@ -24,8 +24,8 @@
   <artifactId>brave-itests</artifactId>
 
   <properties>
-    <pax-exam.version>4.13.4</pax-exam.version>
-    <karaf.version>4.3.0</karaf.version>
+    <pax-exam.version>4.13.5</pax-exam.version>
+    <karaf.version>4.3.10</karaf.version>
     <main.basedir>${project.basedir}/..</main.basedir>
   </properties>
 
