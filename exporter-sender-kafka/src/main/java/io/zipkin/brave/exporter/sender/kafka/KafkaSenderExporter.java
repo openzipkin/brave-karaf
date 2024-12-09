@@ -1,15 +1,6 @@
 /*
- * Copyright 2016-2020 The OpenZipkin Authors
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ * Copyright The OpenZipkin Authors
+ * SPDX-License-Identifier: Apache-2.0
  */
 package io.zipkin.brave.exporter.sender.kafka;
 
@@ -24,8 +15,8 @@ import org.osgi.service.component.annotations.ConfigurationPolicy;
 import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.metatype.annotations.Designate;
 import org.osgi.service.metatype.annotations.ObjectClassDefinition;
-import zipkin2.codec.Encoding;
-import zipkin2.reporter.Sender;
+import zipkin2.reporter.Encoding;
+import zipkin2.reporter.BytesMessageSender;
 import zipkin2.reporter.kafka.KafkaSender;
 
 @Component(
@@ -37,7 +28,7 @@ import zipkin2.reporter.kafka.KafkaSender;
 public class KafkaSenderExporter {
 
   private static final String OVERRIDE_PREFIX = "kafka.";
-  private ServiceRegistration<Sender> reg;
+  private ServiceRegistration<BytesMessageSender> reg;
   private KafkaSender sender;
 
   @Activate
@@ -49,7 +40,7 @@ public class KafkaSenderExporter {
         .overrides(getOverrides(properties))
         .topic(config.topic())
         .build();
-    reg = context.registerService(Sender.class, sender, new Hashtable<String, String>(properties));
+    reg = context.registerService(BytesMessageSender.class, sender, new Hashtable<String, String>(properties));
   }
 
   private HashMap<String, String> getOverrides(Map<String, String> properties) {
