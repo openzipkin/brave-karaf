@@ -12,9 +12,8 @@ All artifacts publish to the group ID "io.zipkin.brave.karaf". We use a common
 release version for all components.
 
 ### Library Releases
-Snapshots are uploaded to [Sonatype](https://oss.sonatype.org/content/repositories/releases/io/zipkin/brave/karaf) which
-synchronizes with [Maven Central](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22io.zipkin.brave.karaf%22)
+Releases are at [Maven Central](https://central.sonatype.com/search?q=brave-karaf&namespace=io.zipkin.brave.karaf)
 
 ### Library Snapshots
-Snapshots are uploaded to [Sonatype](https://oss.sonatype.org/content/repositories/snapshots) after
+Snapshots are uploaded to [Sonatype](https://central.sonatype.com/repository/maven-snapshots/) after
 commits to master.
