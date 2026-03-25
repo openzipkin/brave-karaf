@@ -13,6 +13,7 @@
     <version>0.3.1-SNAPSHOT</version>
   </parent>
   <artifactId>brave-features</artifactId>
+  <name>Brave Karaf: Features</name>
   <packaging>pom</packaging>
 
   <properties>
