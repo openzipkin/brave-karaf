@@ -13,6 +13,7 @@
     <version>0.3.1-SNAPSHOT</version>
   </parent>
   <artifactId>brave-itests</artifactId>
+  <name>Brave Karaf: Integration Tests</name>
 
   <properties>
     <pax-exam.version>4.13.5</pax-exam.version>
